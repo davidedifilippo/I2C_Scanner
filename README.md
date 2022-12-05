@@ -43,9 +43,8 @@ microcontrollore --> PC che il dispositivo è stato trovato all'indirizzo esadec
 
 che effettua la stampa dell'indirizzo trovato in formato esadecimale. Poi setto un flag booleano che impedisce di andare avanti nella ricerca.
 
-        bool trovato = false;
+        trovato = true;
         
-Se al termine della scansione non ho trovato nulla stampo "Dispositivo non trovato, controllare le connessioni e resettare". Poi si blocca l'esecuzione del loop.
+Se al termine della scansione non ho trovato nulla stampo "Dispositivo non trovato, controllare le connessioni e resettare. STOP" e blocco l'esecuzione del loop.
 
- 
  
