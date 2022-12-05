@@ -2,8 +2,8 @@
 
 A volte non si conosce l'indirizzo con cui il sensore risponde alle interrogazioni. Essendo però un codice a 7 bit, 
 le combinazioni non sono infinite (solo 127 possibilità).
-Si potrebbe provare allora ad interrogare a tutti gli indirizzi possibili e vedere in corrispondenza di quale indirizzo
-abbiamo una risposta. Essendo il solo dispositivo collegato sul BUS I2C avremo determinato l'indirizzo del sensore 
+Si potrebbe provare allora ad interrogare il sensore a tutti gli indirizzi a 7 bit possibili e vedere in corrispondenza 
+di quale indirizzo abbiamo una risposta. Essendo il solo dispositivo collegato sul BUS I2C avremo determinato l'indirizzo del sensore 
 sul BUS.
 
 ## La libreria di gestione del modulo I2C
@@ -28,6 +28,8 @@ sensore I2C in commercio.
 Nel loop interrogo il sensore a tutti gli indirizzi possibili per vedere se riponde:
 
         Wire.beginTrasmission(address);
+        
+con address che assume ad ogni ciclo un valore maggiore partendo da 1 fino al massimo 127. 
 
         bool success = true;
 
@@ -38,8 +40,11 @@ micrcontrollore --> PC che il dispositivo è stato trovato all'indirizzo esadeci
 
         Serial.println(address, HEX);
 
-che effettua la stampa dell'indirizzo trovato in formato esadecimale.
+che effettua la stampa dell'indirizzo trovato in formato esadecimale. Poi setto un flag booleano che impedisce di andare avanti nella ricerca.
 
+        bool trovato = false;
+        
+Se al termine della scansione non ho trovato nulla stampo "Dispositivo non trovato, controllare le connessioni e resettare". Poi si blocca l'esecuzione del loop.
 
  
  
