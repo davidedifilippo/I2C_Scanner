@@ -36,8 +36,22 @@ con address che assume ad ogni ciclo un valore maggiore partendo da 8 fino al ma
 
         flag = Wire.endTransmission();
 
-Il sensore, se risponde, invia il codice intero 0. In questo caso devo stampo sulla porta di comunicazione seriale 
-microcontrollore --> PC che il dispositivo è stato trovato all'indirizzo esadeciamle 0X..
+Il sensore, se risponde, invia un codice intero:
+
+0: success.
+
+1: data too long to fit in transmit buffer.
+
+2: received NACK on transmit of address.
+
+3: received NACK on transmit of data.
+
+4: other error.
+
+5: timeout
+
+
+Se flag = 0 stampo sulla porta di comunicazione seriale microcontrollore --> PC che il dispositivo è stato trovato all'indirizzo esadeciamle 0X..
 
         Serial.println(address, HEX);
 
@@ -46,5 +60,6 @@ che effettua la stampa dell'indirizzo trovato in formato esadecimale. Poi setto 
         trovato = true;
         
 Se al termine della scansione non ho trovato nulla stampo "Dispositivo non trovato, controllare le connessioni e resettare. STOP" e blocco l'esecuzione del loop.
+
 
  
