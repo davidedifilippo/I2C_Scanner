@@ -17,8 +17,8 @@ del microcontrollore ATMEGA 328P.
  
 ## Fase di setup
 
-Per poter utilizzare il modulo di comunicazione seriale bisogna attivarlo in modo analogo alla modalità di attivazione 
-del modulo di comunicazione seriale:
+Per poter utilizzare il modulo di comunicazione seriale SINCRONO I2C del microcontrollore, bisogna attivarlo, in modo analogo alla modalità di attivazione 
+del modulo di comunicazione seriale ASINCRONO RS232:
 
         Wire.begin();
         
@@ -32,7 +32,7 @@ Nel loop interrogo il sensore a tutti gli indirizzi possibili per vedere se ripo
 
         Wire.beginTransmission(address);
         
-con address che assume ad ogni ciclo un valore maggiore partendo da 8 fino al massimo 127. Questa istruzione inserisce l'indirizzo nel buffer di trasmissione del modulo I2C (dimensione 32 Byte) ma non invia nulla. Per svuotare il buffer e inviare l'indirizzo sulla linea SDA bisogna invocare:
+con address che assume ad ogni ciclo un valore intero maggiore partendo da 8 fino al massimo 127. Questa istruzione inserisce l'indirizzo nel buffer di trasmissione del modulo I2C (dimensione 32 Byte) ma non invia nulla. Per svuotare il buffer e inviare l'indirizzo sulla linea SDA bisogna invocare:
 
         flag = Wire.endTransmission();
 
@@ -51,7 +51,7 @@ Il sensore, se risponde, invia un codice intero:
 5: timeout
 
 
-Se flag = 0 stampo sulla porta di comunicazione seriale microcontrollore --> PC che il dispositivo è stato trovato all'indirizzo esadeciamle 0X..
+Se flag == 0 stampo sulla porta di comunicazione seriale RS232 microcontrollore --> PC "il dispositivo è stato trovato all'indirizzo esadecimale 0X.."
 
         Serial.println(address, HEX);
 
@@ -59,7 +59,7 @@ che effettua la stampa dell'indirizzo trovato in formato esadecimale. Poi setto 
 
         trovato = true;
         
-Se al termine della scansione non ho trovato nulla stampo "Dispositivo non trovato, controllare le connessioni e resettare. STOP" e blocco l'esecuzione del loop.
+Se al termine della scansione non ho trovato nulla stampo "Dispositivo non trovato, controllare le connessioni e resettare. STOP" e blocco la ricerca.
 
 
  
