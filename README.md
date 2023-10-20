@@ -30,7 +30,7 @@ sensore I2C in commercio.
  
 Nel loop interrogo il sensore a tutti gli indirizzi possibili per vedere se riponde:
 
-        Wire.beginTrasmission(address);
+        Wire.beginTransmission(address);
         
 con address che assume ad ogni ciclo un valore maggiore partendo da 8 fino al massimo 127. Questa istruzione inserisce l'indirizzo nel buffer di trasmissione del modulo I2C (dimensione 32 Byte) ma non invia nulla. Per svuotare il buffer e inviare l'indirizzo sulla linea SDA bisogna invocare:
 
